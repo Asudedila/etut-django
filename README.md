@@ -1,4 +1,4 @@
-# http-s-asudedila-.github.io-
+# http-s-asudedila2-.github.io-
 
 
 # Öğrenci Etüt Sistemi – Django Projesi
