@@ -1,3 +1,6 @@
+# http-s-asudedila-.github.io-
+
+
 # Öğrenci Etüt Sistemi – Django Projesi
 
 Bu proje, öğretmen ve öğrencilerin birebir etüt randevusu oluşturup yönetmesini sağlayan bir Django tabanlı web uygulamasıdır.
