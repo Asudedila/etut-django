@@ -10,4 +10,5 @@ urlpatterns = [
     path("kayit/", views.kayit, name="kayit"),
 
 
+
 ]

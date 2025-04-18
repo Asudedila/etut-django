@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import KullaniciKayitForm
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from datetime import date
 
 
 def kayit(request):
@@ -29,8 +30,21 @@ def kayit(request):
 @login_required
 def anasayfa(request):
     etutler = Etut.objects.all()
-    return render(request, 'anasayfa1.html', {'etutler': etutler})
 
+    gelecek_etutler = []
+    gecmis_etutler = []
+
+    if request.user.profil.rol == 'ogrenci':
+        bugun = date.today()
+        rezerve_etutler = Etut.objects.filter(ogrenci=request.user).order_by('tarih', 'saat')
+        gelecek_etutler = rezerve_etutler.filter(tarih__gte=bugun)
+        gecmis_etutler = rezerve_etutler.filter(tarih__lt=bugun)
+
+    return render(request, 'anasayfa.html', {
+        'etutler': etutler,
+        'gelecek_etutler': gelecek_etutler,
+        'gecmis_etutler': gecmis_etutler,
+    })
 @login_required
 def etut_ekle(request):
     if request.user.profil.rol != "ogretmen":
@@ -60,3 +74,6 @@ def etut_iptal(request, id):
         etut.durum = 'bos'
         etut.save()
     return redirect('anasayfa')
+from django.contrib.auth.decorators import login_required
+from .models import Etut
+
