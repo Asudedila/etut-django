@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Giriş Yap</title>
+</head>
+<body>
+    <h2>Giriş Yap</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Giriş</button>
+    </form>
+
+    <p>Hesabınız yok mu? <a href="{% url 'kayit' %}">Kayıt Ol</a></p>
+</body>
+</html>

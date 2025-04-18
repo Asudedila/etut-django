@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Etüt Listesi</title>
+</head>
+<body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">🚪 Çıkış Yap</button>
+    </form>
+    
+
+    <h2>Etüt Listesi</h2>
+
+    {% if user.is_authenticated %}
+        <p>Merhaba, {{ user.username }} 👋</p>
+        {% if request.user.profil.rol == "ogretmen" %}
+        <a href="{% url 'etut_ekle' %}">➕ Etüt Ekle</a>
+        {% endif %}
+
+    {% endif %}
+
+    <ul>
+    {% for etut in etutler %}
+        <li>
+            📅 {{ etut.tarih }} - 🕒 {{ etut.saat }} | 👨‍🏫 {{ etut.ogretmen.username }}  
+            - <strong>Durum:</strong> {{ etut.durum }}
+
+            {% if etut.durum == 'bos' and  request.user.profil.rol == "ogrenci"%}
+                | <a href="{% url 'etut_rezerve' etut.id %}"> Rezerve Et</a>
+            {% elif etut.ogrenci == user %}
+                | <a href="{% url 'etut_iptal' etut.id %}">İptal Et</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>Henüz hiç etüt eklenmemiş.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

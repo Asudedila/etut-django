@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yeni Etüt Ekle</title>
+</head>
+<body>
+    <h2>Yeni Etüt Oluştur</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="tarih">Tarih:</label>
+        <input type="date" name="tarih" required><br><br>
+
+        <label for="saat">Saat:</label>
+        <input type="time" name="saat" required><br><br>
+
+        <button type="submit">Etüt Ekle</button>
+    </form>
+
+    <hr>
+    <a href="{% url 'anasayfa' %}">← Ana Sayfaya Dön</a>
+</body>
+</html>
